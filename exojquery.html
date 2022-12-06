@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"
+    ></script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>ACS Lure:</td>
+        </tr>
+        <tr>
+            <td>
+                <label for="">Langage:</label>
+                <input type="text" id="nom" required="required" />
+            </td>
+            <td>
+                <label for="">Note:</label><input type="text" id="note" required />
+            </td>
+            <td>
+                <input type="submit" id="Aj" value="ajouter" />
+            </td>
+        </tr>
+    </table>
+    <div id="table">
+        <table>
+        </table>
+    </div>
+    <div>
+        <p>Moyenne : <span id="moyenne"></span></p>
+    </div>
+</body>
+
+<script>
+$(document).ready(function () {
+    var T;
+    var r1, r2, res;
+
+    r1 = Number($("#table tr:first-child() td:last-child()").text());
+    r2 = Number($("#table tr:nth-child(2) td:last-child()").text());
+    res = r1 + r2;
+    $("#moyenne").text(res / 2);
+
+// button ajouter
+        $("#Aj").click(function (e) {
+    var nom = $("#nom").val();
+    var note = $("#note").val();
+        if (isNaN(nom) && note >= 0 && note <= 20) {
+            var row =
+                "<tr>" +
+                "<td>" +
+            nom +
+                "</td>" +
+                "<td>" +
+            note +
+                "</td>" +
+                "</tr>";
+            $("#table table").append(row);
+
+                res += Number($("#table tr:last-child() td:last-child()").text());
+
+            $("#table table tr:nth-child(odd)").css("background", "#CCCCFF");
+            $("#table table tr:nth-child(even)").css("background", "#9966ff");
+
+            var len = $("#table  tr").length;
+
+            $("#moyenne").text(res / len);
+        } 
+        else {
+            alert("Champ invalide");
+            e.preventDefault();
+        }
+    });
+});
+</script>
+</html>
